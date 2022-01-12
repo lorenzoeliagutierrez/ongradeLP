@@ -11,7 +11,7 @@ include 'db.php';
       <span class="logo-mini"><b>SN</span>
       <!-- logo for regular state and mobile devices -->
       <img src="../../img/sfac.jpg" style="height: 50px; width: 50px; float: left;">
-      <span class="logo-lg">SFAC-BACOOR</span>
+      <span class="logo-lg">SFAC-LP</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

@@ -162,7 +162,7 @@ background: rgba(255,0,0, 0.3);
 
 <div class="footer">
 
-    <p>SFAC-Bacoor Campus | Online Grading System | Alrights Reserved &copy; <?php echo date('Y') ?><small style="float: right; margin-right: 5px">COMPSOC Batch 19-20</small></p>
+    <p>SFAC-Las Piñas Campus | Online Grading System | Alrights Reserved &copy; <?php echo date('Y') ?><small style="float: right; margin-right: 5px">COMPSOC Batch 19-20</small></p>
 </div>
 <?php
         include "../../includes/db.php";
