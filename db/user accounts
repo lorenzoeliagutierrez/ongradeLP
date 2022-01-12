@@ -1,0 +1,16 @@
+Super Admin
+	username: 	superadmin
+	pass:		superadmin
+
+registrar
+	username:	admin
+	pass:		admin
+
+Student
+	username:	student
+	pass:		student
+
+Teacher
+	wala pa hahaha
+	gayahin mo na lang pano mag create si super admin ng registrar
+	tapos check mo mga files na naoopen habang gumagawa ka ng registrar account
