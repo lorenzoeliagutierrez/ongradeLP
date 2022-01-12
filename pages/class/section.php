@@ -68,14 +68,7 @@ include '../../includes/db.php';
 //                 </tr>';
 // }
 $que = mysqli_query($db,
-  "SELECT DISTINCT section, time, day, room 
-  FROM tbl_schedules_old 
-  WHERE tbl_schedules_old.faculty_id = '$_SESSION[userid]' 
-  AND class_code='$_GET[code]' 
-  AND acad_year = '$_SESSION[active_acad]' 
-  AND semester = '$_SESSION[active_sem]'
-  UNION 
-  SELECT DISTINCT section, time, day, room  
+  "SELECT DISTINCT section, time, day, room  
   FROM tbl_schedules 
   WHERE tbl_schedules.faculty_id = '$_SESSION[userid]' 
   AND class_code='$_GET[code]' 

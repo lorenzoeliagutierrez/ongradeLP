@@ -103,15 +103,7 @@ $quer = mysqli_query($db,
   LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_schedules.subj_id 
   WHERE tbl_schedules.faculty_id = '$_SESSION[userid]' 
   AND acad_year = '$schoolyear' 
-  AND semester = '$sem' 
-  GROUP BY class_code
-  UNION
-  SELECT class_id,class_code,tbl_subjects.subj_desc 
-  FROM tbl_schedules_old 
-  LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_schedules_old.subj_id 
-  WHERE tbl_schedules_old.faculty_id = '$_SESSION[userid]' 
-  AND acad_year = '$schoolyear' 
-  AND semester = '$sem' 
+  AND semester = '$sem'
   GROUP BY class_code");
 while($row1 = mysqli_fetch_array($quer)){
 

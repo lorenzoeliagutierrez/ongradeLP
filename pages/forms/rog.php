@@ -1,7 +1,7 @@
 <?php
 require ('../fpdf/fpdf.php');
 include '../../includes/session.php';
-
+include '../../includes/db.php';
 
 
 
@@ -46,21 +46,7 @@ function Header()
 
     $this->Ln(3);
 $que3 =mysqli_num_rows(mysqli_query($db,
-    "SELECT *,tbl_students.img,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  AS fullname 
-    FROM tbl_enrolled_subjects 
-    LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_enrolled_subjects.subj_id
-    LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
-    LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
-    LEFT JOIN tbl_schedules_old ON tbl_schedules_old.class_id = tbl_enrolled_subjects.class_id
-    LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules_old.faculty_id
-    WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
-    AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
-    AND tbl_subjects.subj_code = '$_GET[code]' 
-    AND tbl_schedules_old.section = '$_GET[section]'
-    And tbl_enrolled_subjects.enroll_status = 'Approved'
-    
-    UNION 
-    SELECT *,tbl_students.img,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname 
+    "SELECT *,tbl_students.img,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname 
     FROM tbl_enrolled_subjects 
     LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id
     LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
@@ -78,12 +64,7 @@ $qwer = mysqli_fetch_array(mysqli_query($db,
     "SELECT * 
     FROM tbl_schedules 
     LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_schedules.subj_id 
-    WHERE class_code = '$_GET[code]' and section = '$_GET[section]' and tbl_schedules.acad_year = '$_SESSION[active_acad]' and tbl_schedules.semester = '$_SESSION[active_sem]'
-    UNION 
-    SELECT * 
-    FROM tbl_schedules_old 
-    LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_schedules_old.subj_id 
-    WHERE class_code = '$_GET[code]' and section = '$_GET[section]' and tbl_schedules_old.acad_year = '$_SESSION[active_acad]' and tbl_schedules_old.semester = '$_SESSION[active_sem]'"));
+    WHERE class_code = '$_GET[code]' and section = '$_GET[section]' and tbl_schedules.acad_year = '$_SESSION[active_acad]' and tbl_schedules.semester = '$_SESSION[active_sem]'"));
 
 $this->SetFont('Arial','','11');
 $this->Cell(25,5,'Course Code:',0,0);
@@ -435,14 +416,13 @@ function Footer()
 {include '../../includes/db.php';
     // Position at 1.5 cm from bottom
     $this->Rect(10,241.7,196.72,70);
-$sql = mysqli_query($db,"SELECT *,CONCAT(tbl_faculties_staff.faculty_firstname, ' ', tbl_faculties_staff.faculty_middlename, ' ', tbl_faculties_staff.faculty_lastname)  AS fullname FROM tbl_faculties_staff where faculty_id = '$_SESSION[userid]'");
-    $row = mysqli_fetch_array($sql);
+$sql = mysqli_fetch_array(mysqli_query($db,"SELECT *,CONCAT(tbl_faculties_staff.faculty_firstname, ' ', tbl_faculties_staff.faculty_middlename, ' ', tbl_faculties_staff.faculty_lastname)  AS fullname FROM tbl_faculties_staff where faculty_id = '$_GET[faculty_id]'"));
 
 $this->SetXY(10,255);
 $this->SetFontSize(8);
 $this->Cell(20,5,'Prepared by:',0,0);
 $this->SetFont('Arial','B','10');
-$this->Cell(50,5,strtoupper($row['fullname']),'B',0,'C');//=====================PROFESSOR NAME=================
+$this->Cell(50,5,$sql['fullname'],'B',0,'C');//=====================PROFESSOR NAME=================
 $this->Cell(5,5,'',0,0);
 $this->Cell(30,5,date('M d, Y'),'B',1,'C');
 
@@ -967,22 +947,7 @@ $pdf->SetXY(10,91.7);
 $pdf->SetFont('Arial','','11');
 $pdf->SetXY(10,91.7);
 $que = mysqli_query($db,
-    "SELECT *,tbl_students.img,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname 
-    FROM tbl_enrolled_subjects 
-    LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_enrolled_subjects.subj_id
-    LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
-    LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
-    LEFT JOIN tbl_schedules_old ON tbl_schedules_old.class_id = tbl_enrolled_subjects.class_id
-    LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules_old.faculty_id 
-    WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
-    AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
-    AND tbl_subjects.subj_code = '$_GET[code]' 
-    AND tbl_schedules_old.section = '$_GET[section]'
-    And tbl_enrolled_subjects.enroll_status = 'Approved'
-
-    UNION 
-
-    SELECT *,tbl_students.img,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname FROM tbl_enrolled_subjects 
+    "SELECT *,tbl_students.img,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname FROM tbl_enrolled_subjects 
     LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id
     LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
     LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
@@ -1054,7 +1019,6 @@ while($row = mysqli_fetch_array($que)){
             }
 }}
 $pdf->SetFont('Arial','B','12');
-$pdf->Cell(200,5,'*********sfac****************************Nothing Follows ' . ($x-1) . ' Students****************************sfac**********',0,1,'C');
     
 
 

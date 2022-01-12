@@ -24,14 +24,7 @@ include '../../includes/db.php';
     <!-- Main content -->
     <section class="content">
       <!-- Main row -->
-      <?php $que= mysqli_query($db,"
-        SELECT * 
-        FROM tbl_subjects_new 
-        where subj_code = '$_GET[code]' 
-        UNION 
-        SELECT * 
-        FROM tbl_subjects 
-        where subj_code = '$_GET[code]' LIMIT 1");
+      <?php $que= mysqli_query($db,"SELECT * FROM tbl_subjects_new where subj_code = '$_GET[code]' LIMIT 1");
               while ($row = mysqli_fetch_array($que)) {
                 ?>
       <div class="row">
@@ -77,13 +70,6 @@ include '../../includes/db.php';
 // }
 $que = mysqli_query($db,
   "SELECT DISTINCT section, time, day, room  
-  FROM tbl_schedules_old 
-  WHERE tbl_schedules_old.faculty_id = '$_GET[faculty_id]' 
-  AND class_code='$_GET[code]' 
-  AND acad_year = '$_SESSION[active_acad]' 
-  AND semester = '$_SESSION[active_sem]'
-  UNION 
-  SELECT DISTINCT section, time, day, room  
   FROM tbl_schedules 
   WHERE tbl_schedules.faculty_id = '$_GET[faculty_id]' 
   AND class_code='$_GET[code]' 
@@ -98,8 +84,8 @@ while($row = mysqli_fetch_array($que)){
                   <td>'.$row['room'].'</td>
                   <td><center>
                     <a href="class_stud.php?code='.$_GET['code'].'&section='.$row['section'].'" class="btn btn-danger">Enter Grade | Enter Absences | Transfer Section</a>
-                    <a href="../forms/rog.php?code='.$_GET['code'].'&section='.$row['section'].'" class="btn btn-success">View ROG</a>
-                    <a href="../forms/class_list.php?code='.$_GET['code'].'&section='.$row['section'].'" class="btn btn-primary">View Class List</a></center>
+                    <a href="../forms/rog.php?code='.$_GET['code'].'&section='.$row['section'].'&faculty_id='.$_GET['faculty_id'].'" class="btn btn-success">View ROG</a>
+                    <a href="../forms/class_list.php?code='.$_GET['code'].'&section='.$row['section'].'&faculty_id='.$_GET['faculty_id'].'" class="btn btn-primary">View Class List</a></center>
                   </td>
                 </tr>';
 }

@@ -1,13 +1,7 @@
 <?php
 include '../../includes/session.php';
 require ('../fpdf/fpdf.php');
-
-$server = 'clpc-32';
-    $username = 'root';
-    $password = '';
-    $dbase = 'enrollment';
-
-    $con = new mysqli($server, $username, $password, $dbase);
+include '../../includes/db.php';
 
     date_default_timezone_set('Asia/Manila');
 

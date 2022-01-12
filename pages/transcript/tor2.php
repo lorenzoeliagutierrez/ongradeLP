@@ -1,22 +1,9 @@
 <?php
 require ('../fpdf/fpdf.php');
+include '../../includes/session.php';
 include '../../includes/db.php';
 
-//     $server = 'localhost';
-//     $username = 'root';
-//     $password = '';
-//     $db = 'enrollment';
-
-//     $db = new mysqli($server, $username, $password, $db);
-
     date_default_timezone_set('Asia/Manila');
-
-//get invoices data
-
-
-
-       
-             
 
 class PDF extends FPDF
 {
@@ -24,15 +11,8 @@ class PDF extends FPDF
 // Page header
 function Header()
 {   
-
-    $server = 'localhost';
-    $username = 'root';
-    $password = '';
-    $db = 'enrollment';
-
-    $db = new mysqli($server, $username, $password, $db);
-    $query = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_genders ON tbl_genders.gender_id = tbl_students.gender_id
-    where stud_id = '".$_GET['stud_id']."'");
+      include '../../includes/db.php';
+    $query = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_genders ON tbl_genders.gender_id = tbl_students.gender_id where stud_id = '".$_GET['stud_id']."'");
     $row = mysqli_fetch_array($query);
     // Logo(x axis, y axis, height, width)
     $this->Image('../../img/logo.png',18,3,19,19);

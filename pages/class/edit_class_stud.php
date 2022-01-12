@@ -41,21 +41,6 @@ include '../../includes/db.php';
 $que = mysqli_query($db,
   "SELECT *,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname 
   FROM tbl_enrolled_subjects 
-  LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_enrolled_subjects.subj_id
-  LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
-  LEFT JOIN tbl_schedules_old ON tbl_schedules_old.class_id = tbl_enrolled_subjects.class_id
-  LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules_old.faculty_id 
-  WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
-  AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
-  AND tbl_subjects.subj_code = '$_GET[code]' 
-  AND tbl_schedules_old.section = '$_GET[section]' 
-  AND tbl_enrolled_subjects.stud_id ='$_GET[stud_id]'
-  And tbl_enrolled_subjects.enroll_status = 'Approved'
-
-  UNION 
-
-  SELECT *,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname 
-  FROM tbl_enrolled_subjects 
   LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id
   LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
   LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id
@@ -84,14 +69,7 @@ $quer = mysqli_query($db,
   WHERE class_code = '$_GET[code]'
   AND tbl_schedules.semester='$_SESSION[active_sem]'
   AND tbl_schedules.acad_year = '$_SESSION[active_acad]'
-  GROUP BY section
-UNION
-SELECT class_id,section 
-FROM tbl_schedules_old 
-WHERE class_code = '$_GET[code]' 
-AND tbl_schedules_old.semester='$_SESSION[active_sem]'
-AND tbl_schedules_old.acad_year = '$_SESSION[active_acad]'
-GROUP BY section");
+  GROUP BY section");
 
 while($row1 = mysqli_fetch_array($quer)){
                                     echo '<option value="'.$row1['class_id'].'">'.$row1['section'].'</option>';

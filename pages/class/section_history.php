@@ -28,13 +28,8 @@ include '../../includes/db.php';
         <div class="col-sm-10 col-sm-offset-1">
           <div class="box">
             <div class="box-header">
-              <?php $que= mysqli_query($db,"
-                SELECT * 
+              <?php $que= mysqli_query($db,"SELECT * 
         FROM tbl_subjects_new 
-        where subj_code = '$_GET[code]' 
-        UNION 
-        SELECT * 
-        FROM tbl_subjects 
         where subj_code = '$_GET[code]' LIMIT 1");
               while ($row = mysqli_fetch_array($que)) {
                 ?>
@@ -75,14 +70,7 @@ include '../../includes/db.php';
 //                 </tr>';
 // }
 $que = mysqli_query($db,
-  "SELECT DISTINCT section, time, day, room 
-  FROM tbl_schedules_old 
-  WHERE tbl_schedules_old.faculty_id = '$_SESSION[userid]' 
-  AND class_code='$_GET[code]' 
-  AND acad_year = '$_GET[ay]' 
-  AND semester = '$_GET[sem]'
-  UNION 
-  SELECT DISTINCT section, time, day, room  
+  "SELECT DISTINCT section, time, day, room  
   FROM tbl_schedules 
   WHERE tbl_schedules.faculty_id = '$_SESSION[userid]' 
   AND class_code='$_GET[code]' 
