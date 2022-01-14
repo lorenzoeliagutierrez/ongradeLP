@@ -71,12 +71,13 @@ include '../../includes/db.php';
                         LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
                         LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
                         LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id
-                        LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id 
+                        LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id   
+                        LEFT JOIN tbl_schoolyears ON tbl_schoolyears.stud_id = tbl_students.stud_id
                         WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
                         AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
                         AND tbl_subjects_new.subj_code = '$_GET[code]' 
                         AND tbl_schedules.section = '$_GET[section]'
-                        And tbl_enrolled_subjects.enroll_status = 'Approved'
+                        And tbl_schoolyears.remark= 'Approved'
                         ORDER BY fullname");
 
                   while($row = mysqli_fetch_array($que)){

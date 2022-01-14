@@ -65,19 +65,18 @@ include '../../includes/db.php';
                   <?php 
 
                   $que = mysqli_query($db,
-                        "SELECT *,tbl_students.img,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  AS fullname
-                        FROM tbl_enrolled_subjects 
-                        LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id
-                        LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
-                        LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
-                        LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id
-                        LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id 
-                        WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
-                        AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
-                        AND tbl_subjects_new.subj_code = '$_GET[code]' 
-                        AND tbl_schedules.section = '$_GET[section]'
-                        And tbl_enrolled_subjects.enroll_status = 'Approved'
-                        ORDER BY fullname");
+                  "SELECT *,tbl_students.img,CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname FROM tbl_enrolled_subjects 
+                  LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id
+                  LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
+                  LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
+                  LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id 
+                  LEFT JOIN tbl_schoolyears ON tbl_schoolyears.stud_id = tbl_students.stud_id
+                  WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
+                  AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
+                  AND tbl_subjects_new.subj_code = '$_GET[code]' 
+                  AND tbl_schedules.section = '$_GET[section]' 
+                  AND tbl_schoolyears.remark = 'Approved' 
+                  ORDER BY fullname");
 
                   while($row = mysqli_fetch_array($que)){
                     echo'<tr> <style>

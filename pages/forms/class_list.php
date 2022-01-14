@@ -5,7 +5,6 @@ include '../../includes/session.php';
 
 
 
-
 class PDF extends FPDF
 {
 
@@ -52,12 +51,13 @@ $que3 =mysqli_num_rows(mysqli_query($db,
     LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
     LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
     LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id
-    LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id 
+    LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id   
+    LEFT JOIN tbl_schoolyears ON tbl_schoolyears.stud_id = tbl_students.stud_id
     WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
     AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
     AND tbl_subjects_new.subj_code = '$_GET[code]' 
     AND tbl_schedules.section = '$_GET[section]'
-    And tbl_enrolled_subjects.enroll_status = 'Approved' 
+    And tbl_schoolyears.remark = 'Approved' 
     "));
 
 $qwer = mysqli_fetch_array(mysqli_query($db,
@@ -330,9 +330,10 @@ $this->Rect(178.87,236.7,27,5);
 // Page footer
 function Footer()
 {include '../../includes/db.php';
+    $idUser = $_SESSION['userid'];
     // Position at 1.5 cm from bottom
     $this->Rect(10,241.7,196.72,70);
-$sql = mysqli_query($db,"SELECT *,CONCAT(tbl_faculties_staff.faculty_firstname, ' ', tbl_faculties_staff.faculty_middlename, ' ', tbl_faculties_staff.faculty_lastname)  AS fullname FROM tbl_faculties_staff where faculty_id = '$_GET[faculty_id]'");
+$sql = mysqli_query($db,"SELECT *,CONCAT(tbl_faculties_staff.faculty_firstname, ' ', tbl_faculties_staff.faculty_middlename, ' ', tbl_faculties_staff.faculty_lastname)  AS fullname FROM tbl_faculties_staff where faculty_id = '$idUser'");
     $row = mysqli_fetch_array($sql);
 
 $this->SetXY(10,255);
@@ -856,12 +857,13 @@ $que = mysqli_query($db,
     LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id
     LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
     LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
-    LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id
-    LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id 
+    LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id 
+    LEFT JOIN tbl_schoolyears ON tbl_schoolyears.stud_id = tbl_students.stud_id
     WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
     AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
     AND tbl_subjects_new.subj_code = '$_GET[code]' 
     AND tbl_schedules.section = '$_GET[section]' 
+    AND tbl_schoolyears.remark = 'Approved' 
     ORDER BY fullname");
     
     $y = $pdf->Gety();
