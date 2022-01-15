@@ -108,29 +108,7 @@ include '../../includes/db.php';
 include '../../includes/db.php';
 $l= mysqli_query($db, "SELECT * FROM tbl_students WHERE stud_id = '$_SESSION[userid]'");
 while($rows = mysqli_fetch_array ($l)){
-if($rows['curri'] == "Old Curri"){
-$sqls = mysqli_query($db,"SELECT *,tbl_subjects.subj_code,tbl_subjects.subj_desc FROM tbl_enrolled_subjects LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_enrolled_subjects.subj_id where tbl_enrolled_subjects.acad_year = '$schoolyear' AND tbl_enrolled_subjects.semester = '$sem' AND stud_id = '$_SESSION[userid]'")or die($db);
-while($roe = mysqli_fetch_array($sqls)){
-  
- ?>
-                        <tr>
-                          <td><?php echo $roe['subj_code']; ?></td>
-                          <td><?php echo $roe['subj_desc']; ?></td>
-                          <td><?php echo $roe['prelim']; ?></td>
-                          <td><?php echo $roe['midterm']; ?></td>
-                          <td><?php echo $roe['finalterm']; ?></td>
-                          <td><?php echo $roe['ofgrade']; ?></td>
-                          <td><?php echo $roe['numgrade']; ?></td>
-                          <?php if ($roe['remarks'] == 'Passed') {
-                            echo '<td style="color:green;">'.$roe['remarks'].'</td>';
-                          }elseif($roe['remarks'] == 'Failed'){
-                            echo '<td style="color:red;">'.$roe['remarks'].'</td>';
-                          }else{
-                            echo '<td>'. $roe['remarks'].'</td>';
-                          } ?>
-                          
-                        </tr>
-<?php }}else{
+
   $sqls = mysqli_query($db,"SELECT *,tbl_subjects_new.subj_code,tbl_subjects_new.subj_desc FROM tbl_enrolled_subjects LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id where tbl_enrolled_subjects.acad_year = '$schoolyear' AND tbl_enrolled_subjects.semester = '$sem' AND stud_id = '$_SESSION[userid]'")or die($db);
 while($roe = mysqli_fetch_array($sqls)){
   ?>
@@ -151,7 +129,7 @@ while($roe = mysqli_fetch_array($sqls)){
                           } ?>
                         </tr>
 <?php
-}
+
 }}}} ?>
                             
           

@@ -69,10 +69,10 @@ include '../../includes/db.php';
                         FROM tbl_enrolled_subjects 
                         LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id
                         LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
-                        LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
                         LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id
                         LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules.faculty_id   
                         LEFT JOIN tbl_schoolyears ON tbl_schoolyears.stud_id = tbl_students.stud_id
+                        LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id
                         WHERE tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' 
                         AND tbl_enrolled_subjects.semester='$_SESSION[active_sem]' 
                         AND tbl_subjects_new.subj_code = '$_GET[code]' 

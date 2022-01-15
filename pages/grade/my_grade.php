@@ -57,7 +57,7 @@ if ($_SESSION['userid'] != $_GET['stud_id']) {
 
 $l= mysqli_query($db, "SELECT * FROM tbl_students WHERE stud_id = '".$_GET['stud_id']."'");
 while($rows = mysqli_fetch_array ($l)){
-  if($rows['curri'] == "New Curri"){ 
+  
     $q = mysqli_query($db,"SELECT *, CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname,CONCAT(tbl_faculties_staff.faculty_lastname, ', ', tbl_faculties_staff.faculty_firstname, ' ', tbl_faculties_staff.faculty_middlename)  as faculty_fullname,tbl_subjects_new.subj_id,tbl_schedules.class_id,tbl_faculties_staff.faculty_id, CONCAT(tbl_faculties_staff.faculty_lastname, ', ', tbl_faculties_staff.faculty_firstname, ' ', tbl_faculties_staff.faculty_middlename)  as faculty_fullname FROM tbl_enrolled_subjects
   LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
   LEFT JOIN tbl_schedules ON tbl_schedules.class_id = tbl_enrolled_subjects.class_id
@@ -92,31 +92,7 @@ while($row = mysqli_fetch_array ($q)){
                     </table>
                   </div>
 
-<?php   }else{
-  $q = mysqli_query($db,"SELECT *, CONCAT(tbl_students.lastname, ', ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname,tbl_subjects.subj_id,tbl_schedules_old.class_id,tbl_faculties_staff.faculty_id, CONCAT(tbl_faculties_staff.faculty_lastname, ', ', tbl_faculties_staff.faculty_firstname, ' ', tbl_faculties_staff.faculty_middlename)  as faculty_fullname FROM tbl_enrolled_subjects
-  LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_enrolled_subjects.stud_id
-  LEFT JOIN tbl_schedules_old ON tbl_schedules_old.class_id = tbl_enrolled_subjects.class_id
-  LEFT JOIN tbl_faculties_staff ON tbl_faculties_staff.faculty_id = tbl_schedules_old.faculty_id
-  LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_enrolled_subjects.subj_id
-  WHERE tbl_enrolled_subjects.stud_id = '$_GET[stud_id]' AND tbl_enrolled_subjects.acad_year = '$_SESSION[active_acad]' AND tbl_enrolled_subjects.semester = '$_SESSION[active_sem]'") or die(mysqli_error($db));
-while($row = mysqli_fetch_array ($q)){
-  $id=$row['enrolled_subj_id']; ?>
-    <tr>
-                          <td><?php echo $row['subj_code']; ?></td>
-                          <td><?php echo $row['subj_desc']; ?></td>
-                          <td><?php echo $row['absences']; ?></td>
-                          <td><?php echo $row['prelim']; ?></td>
-                          <td><?php echo $row['midterm']; ?></td>
-                          <td><?php echo $row['finalterm']; ?></td>
-                          <td><?php echo $row['ofgrade']; ?></td>
-                          <td><?php echo $row['numgrade']; ?></td>
-                          <td><?php echo $row['remarks']; ?></td>
-                        </tr>
-<?php } ?>
-                      </tbody>
-                    </table>
-                  </div>
-<?php }
+<?php   
 } ?>
                 
 

@@ -35,7 +35,7 @@ include '../../includes/db.php';
                               <?php 
                                 $q1 = mysqli_query($db,"
                                   SELECT *, CONCAT(tbl_students.lastname, ' ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname 
-                                  FROM tbl_students where curri = 'New Curri'
+                                  FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id where tbl_schoolyears.remark = 'Approved'
                                   ");
                                 while($row1=mysqli_fetch_array($q1)){
                                     echo '<option value="'.$row1['stud_id'].'">'.$row1['fullname'].'</option>';
@@ -72,7 +72,7 @@ include '../../includes/db.php';
           FROM tbl_students 
           LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
           LEFT JOIN tbl_genders ON tbl_genders.gender_id = tbl_students.gender_id 
-          WHERE stud_id= '$_SESSION[userid]' and curri='New Curri'")or die(mysqli_error($db));
+          WHERE stud_id= '$_SESSION[userid]'")or die(mysqli_error($db));
           while ($row = mysqli_fetch_array($que))
               echo'<script>{
                 location.replace("../transcript/tor2.php?stud_id='.$_SESSION['userid'].'")}

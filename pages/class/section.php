@@ -28,7 +28,7 @@ include '../../includes/db.php';
         <div class="col-sm-10 col-sm-offset-1">
           <div class="box">
             <div class="box-header">
-              <?php $que= mysqli_query($db,"SELECT * FROM tbl_subjects_new where subj_code = '$_GET[code]'");
+              <?php $que= mysqli_query($db,"SELECT * FROM tbl_subjects_new where subj_code = '$_GET[code]' LIMIT 1");
               while ($row = mysqli_fetch_array($que)) {
                 ?>
               <h2 class="box-title"><strong>Section(s) for <?php echo $_GET['code'].' - '.$row['subj_desc']; ?></strong></h2>

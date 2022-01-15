@@ -16,11 +16,16 @@ include '../../includes/db.php';
 //   header("location: ../404/404.php");
 // }
 
-$query = mysqli_query($db,"SELECT *,CONCAT(tbl_students.lastname, ' ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname FROM tbl_students LEFT JOIN tbl_genders ON tbl_genders.gender_id = tbl_students.gender_id
-    LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
-    where stud_id = '".$_GET['stud']."'");
+$query = mysqli_query($db,"SELECT *, CONCAT(S.firstname, ' ', S.middlename, ' ', S.lastname) AS fullname
+FROM tbl_schoolyears SY
+LEFT JOIN tbl_courses C USING(course_id)
+LEFT JOIN tbl_students S USING(stud_id)
+LEFT JOIN tbl_year_levels YL USING(year_id)
+where stud_id = '".$_GET['stud']."'");
     $row = mysqli_fetch_array($query);
 
+
+    
 
 class PDF extends FPDF
 {

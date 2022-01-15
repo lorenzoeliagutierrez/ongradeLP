@@ -47,7 +47,7 @@ include '../../includes/db.php';
 
                 <tbody>
 <?php 
-// $q = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id WHERE stud_id = '$_GET[stud_id]'");
+// $q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 // while($row1 = mysqli_fetch_array($q)){
 // $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '1' AND sem_id = '1'");
 // while($row = mysqli_fetch_array($query)){
@@ -88,17 +88,11 @@ if ($_SESSION['userid'] != $_GET['stud_id']) {
   header("location: ../404/404.php");
 }
 
-$q = mysqli_query($db,"
-  SELECT * 
-  FROM tbl_students 
-  LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id 
-  WHERE stud_id = '$_GET[stud_id]'");
+$q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 while($row1 = mysqli_fetch_array($q)){
-  if ($row1['curri'] == 'Old Curri') {
-    $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '1' AND sem_id = '1'");
-  }else{
+ 
     $query = mysqli_query($db,"SELECT * FROM tbl_subjects_new WHERE course_id = '$row1[course_id]' AND year_id = '1' AND sem_id = '1'");
-  }
+  
 
 while($row = mysqli_fetch_array($query)){
   echo '        
@@ -135,13 +129,11 @@ while($row = mysqli_fetch_array($query)){
 
                 <tbody>
 <?php 
-$q = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id WHERE stud_id = '$_GET[stud_id]'");
+$q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 while($row1 = mysqli_fetch_array($q)){
-if ($row1['curri'] == 'Old Curri') {
-    $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '1' AND sem_id = '2'");
-  }else{
+
     $query = mysqli_query($db,"SELECT * FROM tbl_subjects_new WHERE course_id = '$row1[course_id]' AND year_id = '1' AND sem_id = '2'");
-  }
+  
 while($row = mysqli_fetch_array($query)){
   echo '        
                 <tr>
@@ -177,13 +169,10 @@ while($row = mysqli_fetch_array($query)){
 
                 <tbody>
 <?php 
-$q = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id WHERE stud_id = '$_GET[stud_id]'");
+$q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 while($row1 = mysqli_fetch_array($q)){
-if ($row1['curri'] == 'Old Curri') {
-    $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '2' AND sem_id = '1'");
-  }else{
     $query = mysqli_query($db,"SELECT * FROM tbl_subjects_new WHERE course_id = '$row1[course_id]' AND year_id = '2' AND sem_id = '1'");
-  }
+  
 while($row = mysqli_fetch_array($query)){
   echo '        
                 <tr>
@@ -220,13 +209,10 @@ while($row = mysqli_fetch_array($query)){
 
                 <tbody>
 <?php 
-$q = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id WHERE stud_id = '$_GET[stud_id]'");
+$q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 while($row1 = mysqli_fetch_array($q)){
-if ($row1['curri'] == 'Old Curri') {
-    $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '2' AND sem_id = '2'");
-  }else{
     $query = mysqli_query($db,"SELECT * FROM tbl_subjects_new WHERE course_id = '$row1[course_id]' AND year_id = '2' AND sem_id = '2'");
-  }
+  
 while($row = mysqli_fetch_array($query)){
   echo '        
                 <tr>
@@ -263,13 +249,10 @@ while($row = mysqli_fetch_array($query)){
 
                 <tbody>
 <?php 
-$q = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id WHERE stud_id = '$_GET[stud_id]'");
+$q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 while($row1 = mysqli_fetch_array($q)){
-if ($row1['curri'] == 'Old Curri') {
-    $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '3' AND sem_id = '1'");
-  }else{
     $query = mysqli_query($db,"SELECT * FROM tbl_subjects_new WHERE course_id = '$row1[course_id]' AND year_id = '3' AND sem_id = '1'");
-  }
+  
 while($row = mysqli_fetch_array($query)){
   echo '        
                 <tr>
@@ -306,13 +289,10 @@ while($row = mysqli_fetch_array($query)){
 
                 <tbody>
 <?php 
-$q = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id WHERE stud_id = '$_GET[stud_id]'");
+$q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 while($row1 = mysqli_fetch_array($q)){
-if ($row1['curri'] == 'Old Curri') {
-    $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '3' AND sem_id = '2'");
-  }else{
     $query = mysqli_query($db,"SELECT * FROM tbl_subjects_new WHERE course_id = '$row1[course_id]' AND year_id = '3' AND sem_id = '2'");
-  }
+  
 while($row = mysqli_fetch_array($query)){
   echo '        
                 <tr>
@@ -349,13 +329,10 @@ while($row = mysqli_fetch_array($query)){
 
                 <tbody>
 <?php 
-$q = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id WHERE stud_id = '$_GET[stud_id]'");
+$q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 while($row1 = mysqli_fetch_array($q)){
-if ($row1['curri'] == 'Old Curri') {
-    $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '4' AND sem_id = '1'");
-  }else{
     $query = mysqli_query($db,"SELECT * FROM tbl_subjects_new WHERE course_id = '$row1[course_id]' AND year_id = '4' AND sem_id = '1'");
-  }
+  
 while($row = mysqli_fetch_array($query)){
   echo '        
                 <tr>
@@ -392,13 +369,10 @@ while($row = mysqli_fetch_array($query)){
 
                 <tbody>
 <?php 
-$q = mysqli_query($db,"SELECT * FROM tbl_students LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id WHERE stud_id = '$_GET[stud_id]'");
+$q = mysqli_query($db,"SELECT * FROM tbl_schoolyears LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id WHERE tbl_schoolyears.stud_id = '$_GET[stud_id]'");
 while($row1 = mysqli_fetch_array($q)){
-if ($row1['curri'] == 'Old Curri') {
-    $query = mysqli_query($db,"SELECT * FROM tbl_subjects WHERE course_id = '$row1[course_id]' AND year_id = '4' AND sem_id = '2'");
-  }else{
     $query = mysqli_query($db,"SELECT * FROM tbl_subjects_new WHERE course_id = '$row1[course_id]' AND year_id = '4' AND sem_id = '2'");
-  }
+  
 while($row = mysqli_fetch_array($query)){
   echo '        
                 <tr>

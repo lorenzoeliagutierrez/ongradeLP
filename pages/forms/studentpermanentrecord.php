@@ -16,9 +16,10 @@ include '../../includes/db.php';
 //   header("location: ../404/404.php");
 // }
 
-$query = mysqli_query($db,"SELECT *,CONCAT(tbl_students.lastname, ' ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname FROM tbl_students LEFT JOIN tbl_genders ON tbl_genders.gender_id = tbl_students.gender_id
-    LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_students.course_id
-    where stud_id = '".$_GET['stud']."'");
+$query = mysqli_query($db,"SELECT *,CONCAT(tbl_students.lastname, ' ', tbl_students.firstname, ' ', tbl_students.middlename)  as fullname FROM tbl_schoolyears
+    LEFT JOIN tbl_students ON tbl_students.stud_id = tbl_schoolyears.stud_id
+    LEFT JOIN tbl_courses ON tbl_courses.course_id = tbl_schoolyears.course_id
+    where tbl_schoolyears.stud_id = '".$_GET['stud']."'");
     $row = mysqli_fetch_array($query);
 
 
@@ -190,42 +191,7 @@ $pdf ->Cell(16,5,'CREDIT',0,1,'C');
 $pdf->SetXY(10,143.5);
 $l= mysqli_query($db, "SELECT * FROM tbl_students WHERE stud_id = '$_GET[stud]'");
 while($rows = mysqli_fetch_array ($l)){
-if($rows['curri'] == "Old Curri"){
-	$sum = mysqli_query($db,"SELECT SUM(unit_total) as UN FROM tbl_enrolled_subjects LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_enrolled_subjects.subj_id where tbl_enrolled_subjects.stud_id = '$_GET[stud]' AND tbl_enrolled_subjects.acad_year = '$_GET[sy]' AND tbl_enrolled_subjects.semester = '$_GET[sem]'");
-                          $row = mysqli_fetch_array ($sum);
-$credited = mysqli_query($db,"SELECT SUM(unit_total) as UN FROM tbl_enrolled_subjects LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_enrolled_subjects.subj_id where remarks = 'Passed' and tbl_enrolled_subjects.stud_id = '$_GET[stud]' AND tbl_enrolled_subjects.acad_year = '$_GET[sy]' AND tbl_enrolled_subjects.semester = '$_GET[sem]'");
-                          $rowew = mysqli_fetch_array ($credited);
-$sqls = mysqli_query($db,"SELECT *,tbl_subjects.subj_code,tbl_subjects.subj_desc FROM tbl_enrolled_subjects LEFT JOIN tbl_subjects ON tbl_subjects.subj_id = tbl_enrolled_subjects.subj_id where tbl_enrolled_subjects.acad_year = '$_GET[sy]' AND tbl_enrolled_subjects.semester = '$_GET[sem]' AND stud_id = '$_GET[stud]'")or die($db);
-$y = $pdf->Gety();
-    $xy = 6.5;
-    $i=1;
-while($roe = mysqli_fetch_array($sqls)){
-	$pdf ->SetXY(10,$y+$xy);
-  $pdf ->Cell(3,5,'',0,1);
-$pdf ->SetFont('Arial','',9);
-$pdf ->Cell(31,6.5,$roe['subj_code'],'B',0);
-$pdf ->Cell(2,6.5,'',0,0);
-$fontsize = 10;
-$tempFontSize = $fontsize;
-$cellwidth = 94;
-while ($pdf->GetStringWidth($roe['subj_desc']) > $cellwidth){
-    $pdf->SetFontSize($tempFontSize -= 0.1);}
-$pdf ->Cell(95,6.5,$roe['subj_desc'],'B',0,'C');
-$pdf ->SetFont('Arial','',9);
-$pdf ->Cell(2,6.5,'',0,0);
-$pdf ->Cell(12,6.5,$roe['unit_total'],'B',0,'C');
-$pdf ->Cell(2,6.5,'',0,0);
-$pdf ->Cell(14,6.5,$roe['numgrade'],'B',0,'C');
-$pdf ->Cell(2,6.5,'',0,0);
-if ($roe['remarks'] == 'Passed') {
-	$credits = $roe['unit_total'];
-}else{
-	$credits = 0;
-}
-$pdf ->Cell(16	,6.5,$credits,'B',0,'C');
-$xy+=6.5;
-    $i++;
- }}else{
+
  $sum = mysqli_query($db,"SELECT SUM(unit_total) as UN FROM tbl_enrolled_subjects LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id where tbl_enrolled_subjects.stud_id = '$_GET[stud]' AND tbl_enrolled_subjects.acad_year = '$_GET[sy]' AND tbl_enrolled_subjects.semester = '$_GET[sem]'");
                           $row = mysqli_fetch_array ($sum);
 $credited = mysqli_query($db,"SELECT SUM(unit_total) as UN FROM tbl_enrolled_subjects LEFT JOIN tbl_subjects_new ON tbl_subjects_new.subj_id = tbl_enrolled_subjects.subj_id where remarks = 'Passed' and tbl_enrolled_subjects.stud_id = '$_GET[stud]' AND tbl_enrolled_subjects.acad_year = '$_GET[sy]' AND tbl_enrolled_subjects.semester = '$_GET[sem]'");
@@ -261,7 +227,7 @@ $pdf ->Cell(16	,6.5,$credits,'',0,'C');
 	$xy+=6.5;
     $i++;
 }
-}}
+}
  
 $pdf->GetY();
 $pdf ->Cell(3,6.5,'',0,1);
