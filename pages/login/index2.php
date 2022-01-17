@@ -14,7 +14,7 @@ body, html {
   content: '';
   height: 100vh;
   width: 100%;
-  background-image: url(../../assets/img/hallway.jpg);
+  background-image: url(../../img/sfaclp.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

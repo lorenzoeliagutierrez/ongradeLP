@@ -30,7 +30,8 @@ class PDF extends FPDF
         // dummy cell
 
         // //cell(width,height,text,border,end line,[align])
-        $this->Cell(0, 3, '#96 Bayanan, City of Bacoor, Cavite', 0, 0, 'C');
+        $test = utf8_decode("Piñas");
+        $this->Cell(0, 3, '045 Admiral Village, Talon 3, Las '.$test.' City', 0, 0, 'C');
         // Line break
         $this->Ln(4);
         $this->SetFont('Arial', 'B', 12);
@@ -419,7 +420,14 @@ class PDF extends FPDF
     function Footer()
     {
         include '../../includes/db.php';
-        $idUser = $_GET['faculty_id'];
+        
+        if ($_SESSION['role'] == "Registrar") {
+            $idUser = $_GET['faculty_id'];
+
+        } else {
+            $idUser = $_SESSION['userid'];
+        }
+       
         // Position at 1.5 cm from bottom
         $this->Rect(10, 241.7, 196.72, 70);
         $sql = mysqli_query($db, "SELECT *,CONCAT(tbl_faculties_staff.faculty_firstname, ' ', tbl_faculties_staff.faculty_middlename, ' ', tbl_faculties_staff.faculty_lastname)  AS fullname FROM tbl_faculties_staff where faculty_id = '$idUser'");

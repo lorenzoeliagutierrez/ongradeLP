@@ -13,7 +13,7 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background-image: url(../../assets/img/hallway.jpg) !important;
+      background-image: url(../../img/sfaclp.jpg) !important;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
