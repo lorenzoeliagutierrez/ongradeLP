@@ -33,7 +33,7 @@ include '../../includes/db.php';
               <?php $que= mysqli_query($db,"
                 SELECT * 
                 FROM tbl_subjects_new 
-                where subj_code = '$_GET[code]'")  or die(mysqli_error($db));
+                where subj_code = '$_GET[code]' LIMIT 1")  or die(mysqli_error($db));
               while ($row = mysqli_fetch_array($que)) {
                 ?>
               <h2 class="box-title">Students Enrolled in <strong><?php echo $_GET['code'].' - '.$row['subj_desc']; ?></strong> - Section <strong><?php echo $_GET['section'] ?></strong></h2>
