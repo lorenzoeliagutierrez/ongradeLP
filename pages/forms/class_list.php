@@ -73,7 +73,15 @@ class PDF extends FPDF
 
         $this->SetFont('Arial', '', '11');
         $this->Cell(25, 5, 'Course Code:', 0, 0);
+
+        $fontsize3 = 11;
+        $tempFontSize3 = $fontsize3;
+        $cellwidth3 = 23;
+        while ($this->GetStringWidth($_GET['code']) > $cellwidth3) {
+            $this->SetFontSize($tempFontSize3 -= 0.1);
+        }
         $this->Cell(23, 5, $_GET['code'], 'B', 0, 'C');
+        $this->SetFont('Arial', '', '11');
         $this->Cell(23, 5, 'Course Title:', 0, 0);
         $fontsize = 11;
         $tempFontSize = $fontsize;

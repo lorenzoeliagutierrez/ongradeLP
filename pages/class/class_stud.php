@@ -100,7 +100,7 @@ include '../../includes/db.php';
                                     <td>'.$row['ofgrade'].'</td>
                                     <td>'.$row['numgrade'].'</td>
                                     <td>'.$row['last_update'].'</td>
-                                    <td>'.$row['updated_by'].'</td>';
+                                    <td>'.$row['updated'].'</td>';
 
                                     if ($row['remarks']== 'Failed') {
                                           echo'<td style="color: red"> '.$row['remarks'].'</td>';
@@ -283,7 +283,7 @@ if (isset($_POST['btn_save']))
                     absences='".$absences."',
                     remarks='".$remarks."',
                     last_update ='".date('Y-m-d H:i:s')."', 
-                    updated_by ='".$_SESSION['role']." - ".$_SESSION['name']."' 
+                    updated ='".$_SESSION['role']." - ".$_SESSION['name']."' 
                       WHERE enrolled_subj_id = '".$enrolled_subj_id."'")or die(mysqli_error($db));
                     if($query == true)
                       { 
@@ -357,7 +357,7 @@ if (isset($_POST['btn_save']))
                           absences='".$absences."',
                           remarks='".$remarks."',
                           last_update ='".date('Y-m-d H:i:s')."',
-                          updated_by ='".$_SESSION['role']." - ".$_SESSION['name']."'
+                          updated ='".$_SESSION['role']." - ".$_SESSION['name']."'
                           WHERE enrolled_subj_id = '".$enrolled_subj_id."'")or die(mysqli_error($db));
                         if($query == true)
                           { 
@@ -437,7 +437,7 @@ if (isset($_POST['btn_save']))
                           absences='".$absences."',
                           remarks='".$remarks."',
                           last_update ='".date('Y-m-d H:i:s')."',
-                          updated_by ='".$_SESSION['role']." - ".$_SESSION['name']."'
+                          updated ='".$_SESSION['role']." - ".$_SESSION['name']."'
                            WHERE enrolled_subj_id = '".$enrolled_subj_id."'")or die(mysqli_error($db));
                         if($query == true)
                           { 
