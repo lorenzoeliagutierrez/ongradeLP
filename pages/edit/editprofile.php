@@ -165,8 +165,6 @@ include '../../includes/db.php';
                 
 
                 if (isset($_POST['edit'])) {
-
-  $link = mysqli_connect("localhost","root","","enrollment") or die("Error ".mysqli_error($link));
                 $id = mysqli_real_escape_string($db,$_SESSION['userid']);
                 $username = mysqli_real_escape_string($db,$_POST['username']);
                 $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
@@ -181,8 +179,7 @@ include '../../includes/db.php';
 if ($password == $confirm) {
   if ($_SESSION['role'] == "Registrar") {
                   $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-                  $query = "UPDATE tbl_admins SET username = '".$username."', img = '".$image."', email = '".$email."', password = '".$hashedPwd."'  where admin_id = '".$id."'";
-                  $link->query($query) or die("Error : ".mysqli_error($link));
+                  $query = mysqli_query($db, "UPDATE tbl_admins SET username = '".$username."', img = '".$image."', email = '".$email."', password = '".$hashedPwd."'  where admin_id = '".$id."'") or die("Error : ".mysqli_error($link));
                   echo "<script>alert('Update Success!');window.location='editprofile.php'</script>";      
                   
                 }
@@ -192,14 +189,14 @@ if ($password == $confirm) {
                 echo "<script>alert('Update Success!');window.location='editprofile.php'</script>";
                 }
                 elseif ($_SESSION['role'] == "Super Administrator") {
+
                   $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-                  $query = "UPDATE tbl_super_admins SET username = '".$username."', img = '".$image."', email = '".$email."', password = '".$hashedPwd."'  where sa_id = '".$id."'";
-                  $link->query($query) or die("Error : ".mysqli_error($link));
+                  $query = mysqli_query($db, "UPDATE tbl_super_admins SET username = '".$username."', img = '".$image."', email = '".$email."', password = '".$hashedPwd."'  where sa_id = '".$id."'") or die("Error : ".mysqli_error($link));
                   echo "<script>alert('Update Success!');window.location='editprofile.php'</script>"; 
                 }elseif ($_SESSION['role'] == "Faculty Staff") {
+
                   $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-                  $query = "UPDATE tbl_faculties_staff SET username = '".$username."', img = '".$image."', email = '".$email."', password = '".$hashedPwd."'  where faculty_id = '".$id."'";
-                  $link->query($query) or die("Error : ".mysqli_error($link));
+                  $query = mysqli_query($db, "UPDATE tbl_faculties_staff SET username = '".$username."', img = '".$image."', email = '".$email."', password = '".$hashedPwd."'  where faculty_id = '".$id."'") or die("Error : ".mysqli_error($link));
                   echo "<script>alert('Update Success!');window.location='editprofile.php'</script>"; 
                 }
 }else{
